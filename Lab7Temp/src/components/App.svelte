@@ -2,19 +2,21 @@
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
 
+
+
 </script>
 
 <main>
 
   
     <h1 style="font-family: 'Bebas Neue', sans-serif">Something Angry</h1>
-    <h2 style="font-family: 'Bebas Neue', sans-serif">
+    <p style="font-family: 'Bebas Neue', sans-serif">
 
     This is where we describe the intro
 
 
 
-    </h2>
+    </p>
     <body></body>
 
     <style>

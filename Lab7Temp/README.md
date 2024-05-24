@@ -1,9 +1,4 @@
-# set-up
 
-Use the following code to setup:
+Welcome to our Project 3
 
-```bash
-npm install .
-npm run dev -- --open
-```
-
+This line is to test that I indeed included the index
