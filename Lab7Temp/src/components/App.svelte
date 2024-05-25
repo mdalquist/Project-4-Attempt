@@ -4,9 +4,30 @@
 
   onMount(() => { 
     async function fetchData() {
-        const response = await fetch('CapitalBudgets.csv');
+
+        function rowConverter(d) {
+          return {
+            '2010-11 Adopted CIP Budget': +d['2010-11 Adopted CIP Budget'], // Convert to number
+            '2011-12 Adopted CIP Budget': +d['2011-12 Adopted CIP Budget'], 
+            '2012-13 Adopted CIP Budget': +d['2012-13 Adopted CIP Budget'],
+            '2013-14 Adopted CIP Budget': +d['2013-14 Adopted CIP Budget'],
+            '2014-15 Adopted CIP Budget': +d['2014-15 Adopted CIP Budget'],
+            '2015-16 Adopted CIP Budget': +d['2015-16 Adopted CIP Budget'],
+            '2016-17 Adopted CIP Budget': +d['2016-17 Adopted CIP Budget'],
+            '2017-18 Adopted CIP Budget': +d['2017-18 Adopted CIP Budget'],
+            '2018-19 Adopted CIP Budget': +d['2018-19 Adopted CIP Budget'],
+            '2019-20 Adopted CIP Budget': +d['2019-20 Adopted CIP Budget'],
+            '2020-21 Adopted CIP Budget': +d['2020-21 Adopted CIP Budget'],
+            '2021-22 Adopted CIP Budget': +d['2021-22 Adopted CIP Budget'],
+            '2022-23 Adopted CIP Budget': +d['2022-23 Adopted CIP Budget'],
+            '2023-24 Adopted CIP Budget': +d['2023-24 Adopted CIP Budget'],
+            '2024-25 Proposed CIP Budget': +d['2024-25 Proposed CIP Budget'],
+          };
+        }
+
+        const response = await fetch('capital_clean.csv');
         const capBudData = await response.text();
-        const capData = d3.csvParse(capBudData);
+        const capData = d3.csvParse(capBudData, rowConverter);
         
         // set the dimensions and margins of the graph
         const margin = {top: 10, right: 30, bottom: 20, left: 50},
@@ -50,7 +71,7 @@
 
         //stack the data? --> stack per subgroup
         const stackedData = d3.stack()
-          .keys(subgroups)
+          .keys(groups)
           (capData)
 
         console.log(stackedData)
@@ -98,7 +119,7 @@
             // enter a second time = loop subgroup per subgroup to add all rectangles
             .data(d => d)
             .join("rect")
-              .attr("x", d =>  x(d.data.Category))
+              .attr("x", d =>  x(d.data.group))
               .attr("y", d => y(d[1]))
               .attr("height", d => y(d[0]) - y(d[1]))
               .attr("width",x.bandwidth())
