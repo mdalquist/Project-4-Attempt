@@ -7,25 +7,26 @@
 
         function rowConverter(d) {
           return {
-            '2010-11 Adopted CIP Budget': +d['2010-11 Adopted CIP Budget'], // Convert to number
-            '2011-12 Adopted CIP Budget': +d['2011-12 Adopted CIP Budget'], 
-            '2012-13 Adopted CIP Budget': +d['2012-13 Adopted CIP Budget'],
-            '2013-14 Adopted CIP Budget': +d['2013-14 Adopted CIP Budget'],
-            '2014-15 Adopted CIP Budget': +d['2014-15 Adopted CIP Budget'],
-            '2015-16 Adopted CIP Budget': +d['2015-16 Adopted CIP Budget'],
-            '2016-17 Adopted CIP Budget': +d['2016-17 Adopted CIP Budget'],
-            '2017-18 Adopted CIP Budget': +d['2017-18 Adopted CIP Budget'],
-            '2018-19 Adopted CIP Budget': +d['2018-19 Adopted CIP Budget'],
-            '2019-20 Adopted CIP Budget': +d['2019-20 Adopted CIP Budget'],
-            '2020-21 Adopted CIP Budget': +d['2020-21 Adopted CIP Budget'],
-            '2021-22 Adopted CIP Budget': +d['2021-22 Adopted CIP Budget'],
-            '2022-23 Adopted CIP Budget': +d['2022-23 Adopted CIP Budget'],
-            '2023-24 Adopted CIP Budget': +d['2023-24 Adopted CIP Budget'],
-            '2024-25 Proposed CIP Budget': +d['2024-25 Proposed CIP Budget'],
+            'Categories': d['Categories'],
+            'Public Utilities': +d['Public Utilities'], // Convert to number
+            'Transportation': +d['Transportation'], 
+            'Parks & Recreation': +d['Parks & Recreation'],
+            'Stormwater': +d['Stormwater'],
+            'Environmental Services': +d['Environmental Services'],
+            'Citywide': +d['Citywide'],
+            'Fire-Rescue': +d['Fire-Rescue'],
+            'General Services': +d['General Services'],
+            'Department of Information Technology': +d['Department of Information Technology'],
+            'Library': +d['Library'],
+            'Airport Management': +d['Airport Management'],
+            'Sustainability & Mobility': +d['Sustainability & Mobility'],
+            'Police': +d['Police'],
+            'Homelessness Strategies and Solutions': +d['Homelessness Strategies and Solutions'],
+            'Real Estate Assets': +d['Real Estate Assets'],
           };
         }
 
-        const response = await fetch('capital_clean.csv');
+        const response = await fetch('Caps-Trans.csv');
         const capBudData = await response.text();
         const capData = d3.csvParse(capBudData, rowConverter);
         
@@ -43,10 +44,11 @@
             .attr("transform",`translate(${margin.left},${margin.top})`);
 
         // List of subgroups = header of the csv files = soil condition here
-        const groups = capData.columns.slice(1)
+        const groups = capData.map(d => d.Categories)
 
         // List of groups = species here = value of the first column called group -> I show them on the X axis
-        const subgroups = capData.map(d => d['Category'])
+        const subgroups = capData.columns.slice(1)
+        console.log(subgroups)
 
         // Add X axis
         const x = d3.scaleBand()
@@ -71,7 +73,7 @@
 
         //stack the data? --> stack per subgroup
         const stackedData = d3.stack()
-          .keys(groups)
+          .keys(subgroups)
           (capData)
 
         console.log(stackedData)
@@ -119,7 +121,7 @@
             // enter a second time = loop subgroup per subgroup to add all rectangles
             .data(d => d)
             .join("rect")
-              .attr("x", d =>  x(d.data.group))
+              .attr("x", d =>  x(d.data.Categories))
               .attr("y", d => y(d[1]))
               .attr("height", d => y(d[0]) - y(d[1]))
               .attr("width",x.bandwidth())
