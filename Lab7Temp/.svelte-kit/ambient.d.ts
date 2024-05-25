@@ -27,6 +27,7 @@
  */
 declare module '$env/static/private' {
 	export const ACLOCAL_PATH: string;
+	export const AGSDESKTOPJAVA: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
 	export const COLOR: string;
@@ -38,9 +39,8 @@ declare module '$env/static/private' {
 	export const DISPLAY: string;
 	export const DriverData: string;
 	export const EDITOR: string;
+	export const EFC_13156: string;
 	export const EXEPATH: string;
-	export const FPS_BROWSER_APP_PROFILE_STRING: string;
-	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const HOME: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
@@ -54,6 +54,7 @@ declare module '$env/static/private' {
 	export const MINGW_CHOST: string;
 	export const MINGW_PACKAGE_PREFIX: string;
 	export const MINGW_PREFIX: string;
+	export const MSYS: string;
 	export const MSYSTEM: string;
 	export const MSYSTEM_CARCH: string;
 	export const MSYSTEM_CHOST: string;
@@ -66,9 +67,9 @@ declare module '$env/static/private' {
 	export const npm_config_global_prefix: string;
 	export const npm_config_init_module: string;
 	export const npm_config_local_prefix: string;
-	export const npm_config_metrics_registry: string;
 	export const npm_config_node_gyp: string;
 	export const npm_config_noproxy: string;
+	export const npm_config_npm_version: string;
 	export const npm_config_prefix: string;
 	export const npm_config_userconfig: string;
 	export const npm_config_user_agent: string;
@@ -82,7 +83,7 @@ declare module '$env/static/private' {
 	export const NUMBER_OF_PROCESSORS: string;
 	export const OLDPWD: string;
 	export const OneDrive: string;
-	export const OnlineServices: string;
+	export const OneDriveConsumer: string;
 	export const ORIGINAL_PATH: string;
 	export const ORIGINAL_TEMP: string;
 	export const ORIGINAL_TMP: string;
@@ -90,7 +91,8 @@ declare module '$env/static/private' {
 	export const PATH: string;
 	export const PATHEXT: string;
 	export const PKG_CONFIG_PATH: string;
-	export const platformcode: string;
+	export const PKG_CONFIG_SYSTEM_INCLUDE_PATH: string;
+	export const PKG_CONFIG_SYSTEM_LIBRARY_PATH: string;
 	export const PLINK_PROTOCOL: string;
 	export const PROCESSOR_ARCHITECTURE: string;
 	export const PROCESSOR_IDENTIFIER: string;
@@ -103,8 +105,6 @@ declare module '$env/static/private' {
 	export const PSModulePath: string;
 	export const PUBLIC: string;
 	export const PWD: string;
-	export const RegionCode: string;
-	export const RTOOLS42_HOME: string;
 	export const SESSIONNAME: string;
 	export const SHELL: string;
 	export const SHLVL: string;
@@ -153,6 +153,7 @@ declare module '$env/static/public' {
 declare module '$env/dynamic/private' {
 	export const env: {
 		ACLOCAL_PATH: string;
+		AGSDESKTOPJAVA: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
 		COLOR: string;
@@ -164,9 +165,8 @@ declare module '$env/dynamic/private' {
 		DISPLAY: string;
 		DriverData: string;
 		EDITOR: string;
+		EFC_13156: string;
 		EXEPATH: string;
-		FPS_BROWSER_APP_PROFILE_STRING: string;
-		FPS_BROWSER_USER_PROFILE_STRING: string;
 		HOME: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;
@@ -180,6 +180,7 @@ declare module '$env/dynamic/private' {
 		MINGW_CHOST: string;
 		MINGW_PACKAGE_PREFIX: string;
 		MINGW_PREFIX: string;
+		MSYS: string;
 		MSYSTEM: string;
 		MSYSTEM_CARCH: string;
 		MSYSTEM_CHOST: string;
@@ -192,9 +193,9 @@ declare module '$env/dynamic/private' {
 		npm_config_global_prefix: string;
 		npm_config_init_module: string;
 		npm_config_local_prefix: string;
-		npm_config_metrics_registry: string;
 		npm_config_node_gyp: string;
 		npm_config_noproxy: string;
+		npm_config_npm_version: string;
 		npm_config_prefix: string;
 		npm_config_userconfig: string;
 		npm_config_user_agent: string;
@@ -208,7 +209,7 @@ declare module '$env/dynamic/private' {
 		NUMBER_OF_PROCESSORS: string;
 		OLDPWD: string;
 		OneDrive: string;
-		OnlineServices: string;
+		OneDriveConsumer: string;
 		ORIGINAL_PATH: string;
 		ORIGINAL_TEMP: string;
 		ORIGINAL_TMP: string;
@@ -216,7 +217,8 @@ declare module '$env/dynamic/private' {
 		PATH: string;
 		PATHEXT: string;
 		PKG_CONFIG_PATH: string;
-		platformcode: string;
+		PKG_CONFIG_SYSTEM_INCLUDE_PATH: string;
+		PKG_CONFIG_SYSTEM_LIBRARY_PATH: string;
 		PLINK_PROTOCOL: string;
 		PROCESSOR_ARCHITECTURE: string;
 		PROCESSOR_IDENTIFIER: string;
@@ -229,8 +231,6 @@ declare module '$env/dynamic/private' {
 		PSModulePath: string;
 		PUBLIC: string;
 		PWD: string;
-		RegionCode: string;
-		RTOOLS42_HOME: string;
 		SESSIONNAME: string;
 		SHELL: string;
 		SHLVL: string;

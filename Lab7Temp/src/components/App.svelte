@@ -31,7 +31,7 @@
         const capData = d3.csvParse(capBudData, rowConverter);
         
         // set the dimensions and margins of the graph
-        const margin = {top: 10, right: 30, bottom: 20, left: 50},
+        const margin = {top: 50, right: 10, bottom: 110, left: 90},
             width = 460 - margin.left - margin.right,
             height = 400 - margin.top - margin.bottom;
 
@@ -50,6 +50,8 @@
         const subgroups = capData.columns.slice(1)
         console.log(subgroups)
 
+        
+
         // Add X axis
         const x = d3.scaleBand()
             .domain(groups)
@@ -57,7 +59,10 @@
             .padding([0.2])
         svg.append("g")
           .attr("transform", `translate(0, ${height})`)
-          .call(d3.axisBottom(x).tickSizeOuter(0));
+          .call(d3.axisBottom(x).tickSizeOuter(0))
+          .selectAll("text")
+          .attr("transform", "rotate(-45)")
+          .style("text-anchor", "end");
 
         // Add Y axis
         const y = d3.scaleLinear()
