@@ -36,7 +36,7 @@
             height = 400 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
-        const svg = d3.select("svg")
+        const svg1 = d3.select("#chart1")
           .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -48,16 +48,13 @@
 
         // List of groups = species here = value of the first column called group -> I show them on the X axis
         const subgroups = capData.columns.slice(1)
-        console.log(subgroups)
-
-        
 
         // Add X axis
         const x = d3.scaleBand()
             .domain(groups)
             .range([0, width])
             .padding([0.2])
-        svg.append("g")
+        svg1.append("g")
           .attr("transform", `translate(0, ${height})`)
           .call(d3.axisBottom(x).tickSizeOuter(0))
           .selectAll("text")
@@ -68,7 +65,7 @@
         const y = d3.scaleLinear()
           .domain([0, 1000000000])
           .range([ height, 0 ]);
-        svg.append("g")
+        svg1.append("g")
           .call(d3.axisLeft(y));
 
         // color palette = one color per subgroup
@@ -81,12 +78,10 @@
           .keys(subgroups)
           (capData)
 
-        console.log(stackedData)
-
         // ----------------
         // Create a tooltip
         // ----------------
-        const tooltip = d3.select("svg")
+        const tooltip = d3.select("#chart1")
           .append("div")
           .style("opacity", 0)
           .attr("class", "tooltip")
@@ -101,7 +96,7 @@
           const subgroupName = d3.select(this.parentNode).datum().key;
           const subgroupValue = d.data[subgroupName];
           tooltip
-              .html("subgroup: " + subgroupName + "<br>" + "Value: " + subgroupValue)
+              .html("Department: " + subgroupName + "<br>" + "Budget: $" + subgroupValue)
               .style("opacity", 1)
 
         }
@@ -116,7 +111,7 @@
         }
 
         // Show the bars
-        svg.append("g")
+        svg1.append("g")
           .selectAll("g")
           // Enter in the stack data = loop key per key = group per group
           .data(stackedData)
@@ -134,6 +129,71 @@
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
+
+        // Stormwater bar chart
+        const svg2 = d3.select("#chart2")
+          .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",`translate(${margin.left},${margin.top})`); 
+
+        svg2.append("g")
+          .attr("transform", `translate(0, ${height})`)
+          .call(d3.axisBottom(x).tickSizeOuter(0))
+          .selectAll("text")
+          .attr("transform", "rotate(-45)")
+          .style("text-anchor", "end");
+
+        // Add Y axis
+        const y2 = d3.scaleLinear()
+          .domain([0, 100000000])
+          .range([ height, 0 ]);
+        svg2.append("g")
+          .call(d3.axisLeft(y2)); 
+
+        const tooltip2 = d3.select("#chart2")
+          .append("div")
+          .style("opacity", 0)
+          .attr("class", "tooltip")
+          .style("background-color", "white")
+          .style("border", "solid")
+          .style("border-width", "1px")
+          .style("border-radius", "5px")
+          .style("padding", "10px")
+
+        // Three function that change the tooltip when user hover / move / leave a cell
+        const mouseover2 = function(event, d) {
+          tooltip2
+              .html("Stormwater Budget: $" + d)
+              .style("opacity", 1)
+
+        }
+        const mousemove2 = function(event, d) {
+          tooltip2.style("transform","translateY(-55%)")
+                .style("left",(event.x)/2+"px")
+                .style("top",(event.y)/2-30+"px")
+        }
+        const mouseleave2 = function(event, d) {
+          tooltip2
+            .style("opacity", 0)
+        }
+
+        const stormCol = capData.map(d => d['Stormwater'])
+
+        svg2.append("g")
+          .selectAll("g")
+            .data(stormCol)
+            .join("rect")
+              .attr("x", (d,i) => x(groups[i]))
+              .attr("y", d => y2(d))
+              .attr("width", x.bandwidth())
+              .attr("height", d => height - y2(d))
+              .attr("fill", '#FFA500')
+              .attr("stroke", "grey")
+            .on("mouseover", mouseover2)
+            .on("mousemove", mousemove2)
+            .on("mouseleave", mouseleave2)
     }
     
     fetchData();
@@ -145,7 +205,11 @@
   <h1>San Diego Residents: Where Are Your Tax Dollars Going?</h1>
   <h2>Analyzing The San Diego City Budget for Weather Emergencies</h2>
   <p>Every year on April 15, residents of the United States turn in their tax forms, handing over a large portion of their income to the federal, state, and local governments. Around the same time, those residents start asking the burning question: Where is my money going? The capital budget of the city of San Diego is utilized to fund long-term investments and projects; these include but are not limited to public utilities, transportation, as well as parks & recreational facilities. The City of San Diego government site hosts a database which details how much money goes into these investments between the years 2010 to 2024 as well as the proposed budget for 2025. The capital budget within these years has grown, with respect to inflation, by approximately 50 percent. The total adopted budget, split up by asset owning department, for each year between 2010 and 2024, along with the proposed budget for 2025, is displayed below:</p>
-  <body></body>
+  <div id="chart1" width=460 height=400></div>
+  <p>From the bar chart, one can assess a stark change in the amount of money utilized. Specifically, certain subsections have grown exponentially when compared to others. Observing the orange section of the bar chart, the budget for stormwater has seen considerable growth in the past 15 years, going from roughly 2 million in 2010 to 84 million in 2025. It goes from unnoticeable to a substantial portion of the overall budget. This massive uptick in investment for stormwater is something that should be a cause for concern as it now makes up almost a fifth of total expenditures; this is in addition to rising concerns over climate change especially in coastal cities. The bar chart below illustrates the trend in stormwater spending. The pie chart below breaks down which projects the stormwater budget funded.</p>
+  <div id="chart2" width=460 height=400></div>
+  <p>Placeholder for sliding pie chart</p>
+  <p>Conclusion paragraph</p>
 </main>
 
 <style>
