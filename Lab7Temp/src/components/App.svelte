@@ -25,7 +25,7 @@
         const groups = capData.columns.slice(1)
 
         // List of groups = species here = value of the first column called group -> I show them on the X axis
-        const subgroups = capData.map(d => d[''])
+        const subgroups = capData.map(d => d['Category'])
 
         // Add X axis
         const x = d3.scaleBand()
@@ -52,6 +52,8 @@
         const stackedData = d3.stack()
           .keys(subgroups)
           (capData)
+
+        console.log(stackedData)
 
         // ----------------
         // Create a tooltip
@@ -96,7 +98,7 @@
             // enter a second time = loop subgroup per subgroup to add all rectangles
             .data(d => d)
             .join("rect")
-              .attr("x", d =>  x(d.data.group))
+              .attr("x", d =>  x(d.data.Category))
               .attr("y", d => y(d[1]))
               .attr("height", d => y(d[0]) - y(d[1]))
               .attr("width",x.bandwidth())
