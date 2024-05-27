@@ -78,6 +78,8 @@
           .keys(subgroups)
           (capData)
 
+        console.log(stackedData)
+
         // ----------------
         // Create a tooltip
         // ----------------
@@ -90,6 +92,7 @@
           .style("border-width", "1px")
           .style("border-radius", "5px")
           .style("padding", "10px")
+        
 
         // Three function that change the tooltip when user hover / move / leave a cell
         const mouseover = function(event, d) {
