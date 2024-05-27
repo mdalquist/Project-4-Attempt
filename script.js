@@ -1,5 +1,5 @@
 import './app.css'
-import App from '.Lab7Temp/src/components/App.svelte'
+import App from './Lab7Temp/src/components/App.svelte'
 
 import { onMount } from 'svelte';
 import * as d3 from 'd3';
