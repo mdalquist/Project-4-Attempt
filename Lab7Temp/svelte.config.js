@@ -9,14 +9,14 @@ const config = {
 		adapter: adapter({
 			// default options are shown. On some platforms
 			// these options are set automatically — see below
-			pages: 'components',
-			assets: 'static',
+			pages: 'build',
+			assets: 'build',
 			fallback: '404.html',
 			precompress: false,
 			strict: true
 		}),
 		paths: {
-			base: process.argv.includes('dev') ? '' : '/DSC106-Project3/'
+			base: process.argv.includes('dev') ? '' : '/Melfaki2024/Project-4/'
 		}
 	}
 };
